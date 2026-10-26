@@ -18,8 +18,6 @@ public class Uts {
         long total;
         boolean kosong, batal;
 
-        // --- PENERAPAN ARRAY OBJEK ---
-        // Membuat wadah array 'daftar' dengan tipe data kelas induk (Produk)
         Produk[] daftar = new Produk[5];
         daftar[0] = new Makanan("MKN01", "Mie Sedap Goreng", 15000, 20, "2026-12-31");
         daftar[1] = new Makanan("MKN02", "Indomie Soto", 3500, 100, "2027-03-15");
@@ -27,8 +25,7 @@ public class Uts {
         daftar[3] = new Coffe("CFE01", "Kopi Hitam", 150000, 5, "2026-12-1");
         daftar[4] = new Game("GM01", "Mainan Bocil",20000, 2, 1);
 
-        // --- PERULANGAN (LOOPING) UTAMA ---
-        // Menggunakan DO-WHILE untuk menjaga aplikasi kasir terus berjalan sampai user memilih keluar (0)
+        // Perulangan Utama (DO-WHILE) untuk Menu Kasir
         do {
             System.out.println();
             System.out.println("===== APLIKASI KASIR =====");
@@ -48,14 +45,12 @@ public class Uts {
                     System.out.println();
                     System.out.println("--- DAFTAR PRODUK ---");
                     
-                    // --- PERULANGAN (LOOPING) FOR & POLYMORPHISM ---
-                    // Perulangan 'for' untuk menyapu seluruh isi array 'daftar'
+                    // Perulangan FOR untuk menyapu array & Memanggil Polymorphism (hitungPajak)
                     for (int i = 0; i < daftar.length; i++) {
                         System.out.println(daftar[i].getKode() + " | "+ daftar[i].getNama()
                                 + " | Rp " + daftar[i].getHarga()
                                 + " | stok: " + daftar[i].getStok()
                                 + " | " + daftar[i].getJenis()
-                                // INI CONTOH POLYMORPHISM: Perintah hitungPajak() sama, tapi hasilnya menyesuaikan objek (Makanan/Game/Kopi)
                                 + " | Pajak: " + daftar[i].hitungPajak() + "%"
                         );
                     }
@@ -66,7 +61,6 @@ public class Uts {
                     System.out.println();
                     System.out.println("--- DAFTAR PRODUK ---");
                     
-                    // --- PERULANGAN (LOOPING) FOR ---
                     for (int i = 0; i < daftar.length; i++) {
                         System.out.println(daftar[i].getKode() + " | " + daftar[i].getNama()
                                 + " | Rp " + daftar[i].getHarga()
@@ -77,7 +71,6 @@ public class Uts {
 
                     posisi = -1;
                     
-                    // --- PERULANGAN (LOOPING) FOR UNTUK PENCARIAN ---
                     for (int i = 0; i < daftar.length; i++) {
                         if (daftar[i].getKode().equalsIgnoreCase(kode)) {
                             posisi = i;
@@ -96,7 +89,7 @@ public class Uts {
                             System.out.println("Stok tidak cukup! Stok " + daftar[posisi].getNama()
                                     + " tinggal " + daftar[posisi].getStok());
                         } else {
-                            // Mengubah data lewat Setter (Encapsulation)
+                            // Mengubah data privat menggunakan method Setter (Encapsulation)
                             daftar[posisi].setJumlahBeli(daftar[posisi].getJumlahBeli() + jumlah);
                             System.out.println("Berhasil ditambahkan ke keranjang.");
                         }
@@ -109,13 +102,11 @@ public class Uts {
                     long totalPajak = 0;
                     System.out.println("\n--- ISI KERANJANG ---");
 
-                    // --- PERULANGAN (LOOPING) FOR & POLYMORPHISM ---
                     for (int i = 0; i < daftar.length; i++) {
                         if (daftar[i].getJumlahBeli() > 0) {
                             kosong = false;
 
                             long hargaBarang = (long) daftar[i].getHarga()* daftar[i].getJumlahBeli();
-                            // POLYMORPHISM: memanggil hitungPajak() secara dinamis di dalam perulangan
                             long pajakBarang = Math.round(hargaBarang * daftar[i].hitungPajak() / 100.0);
 
                             subtotalKeranjang += hargaBarang;
@@ -147,7 +138,6 @@ public class Uts {
 
                     posisi = -1;
                     
-                    // --- PERULANGAN (LOOPING) FOR ---
                     for (int i = 0; i < daftar.length; i++) {
                         if (daftar[i].getKode().equalsIgnoreCase(kode) && daftar[i].getJumlahBeli() > 0) {
                             posisi = i;
@@ -167,13 +157,11 @@ public class Uts {
                     long subtotalBayar = 0;
                     long totalPajakBayar = 0;
                     
-                    // --- PERULANGAN (LOOPING) FOR & POLYMORPHISM ---
                     for (int i = 0; i < daftar.length; i++) {
                         if (daftar[i].getJumlahBeli() > 0) {
                             kosong = false;
                             
                             long hargaBarang = (long) daftar[i].getHarga() * daftar[i].getJumlahBeli();
-                            // POLYMORPHISM
                             long pajakBarang = Math.round(hargaBarang * daftar[i].hitungPajak() / 100.0);
                             
                             subtotalBayar += hargaBarang;
@@ -193,7 +181,6 @@ public class Uts {
                         uang = 0;
                         batal = false;
                         
-                        // --- PERULANGAN (LOOPING) WHILE UNTUK PEMBAYARAN ---
                         while (uang < total && batal == false) {
                             System.out.print("Uang dari pembeli (0 = batal): ");
                             uang = input.nextInt();
@@ -216,7 +203,6 @@ public class Uts {
                             System.out.println(" No. Transaksi : " + nomorTransaksi);
                             System.out.println("--------------------------------------");
                             
-                            // --- PERULANGAN (LOOPING) FOR UNTUK CETAK STRUK ---
                             for (int i = 0; i < daftar.length; i++) {
                                 if (daftar[i].getJumlahBeli() > 0) {
                                     int itemTotal = daftar[i].getHarga() * daftar[i].getJumlahBeli();
@@ -244,7 +230,6 @@ public class Uts {
                     kode = input.next();
                     posisi = -1;
 
-                    // --- PERULANGAN (LOOPING) FOR ---
                     for (int i = 0; i < daftar.length; i++) {
                         if (daftar[i].getKode().equalsIgnoreCase(kode)) {
                             posisi = i;
@@ -271,7 +256,6 @@ public class Uts {
                         if (hargaBaru < 0 || stokBaru < 0) {
                             System.out.println("Harga dan stok tidak boleh negatif.");
                         } else {
-                            // Menggunakan Setter untuk mengubah data secara aman (Encapsulation)
                             daftar[posisi].setKode(kodeBaru);
                             daftar[posisi].setNama(namaBaru);
                             daftar[posisi].setHarga(hargaBaru);
